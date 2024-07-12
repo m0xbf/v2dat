@@ -36,3 +36,30 @@ keyword:google
 regexp:www\.google\.com$
 full:www.google.com
 ```
+
+## Build
+
+### Linux AMD64
+
+To compile the project for the Linux AMD64 platform, use the following command:
+
+```shell
+GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o v2dat
+```
+
+### Linux ARM64
+
+To compile the project for the Linux ARM64 platform, use the following command:
+
+```shell
+GOOS=linux GOARCH=arm64 go build -ldflags="-s -w" -o v2dat
+```
+### Description
+
+- `GOOS=linux` specifies the target operating system.
+
+- `GOARCH=amd64` or `GOARCH=arm64` specifies the target architecture.
+
+- `-ldflags="-s -w"` reduces the binary size by stripping the symbol table and debug information.
+
+- `-o v2dat` specifies the output file name.
