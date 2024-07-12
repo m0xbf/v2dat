@@ -14,6 +14,15 @@ v2dat unpack geosite [-d output_dir] [-f tag[@attr]...]... geosite_file
 - If multiple `@attr` were given. Entries that don't contain any of given attrs will be ignored.
 - Unpacked text files will be named as `<geo_filename>_<filter>.txt`.
 
+### Example
+
+Here is an example of how to use the `v2dat` tool to unpack `geoip` and `geosite` files:
+
+```sh
+v2dat unpack geoip -o ./output_dir -f cn ./geoip.dat
+v2dat unpack geosite -o ./output_dir -f cn -f 'geolocation-!cn' ./geosite.dat
+```
+
 ## Unpacked IP Data
 
 Unpacked IP text files contain a list of CIDRs.
@@ -47,12 +56,28 @@ To compile the project for the Linux AMD64 platform, use the following command:
 GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o v2dat
 ```
 
-### Linux ARM64
+### ImmortalWrt ARM64
 
-To compile the project for the Linux ARM64 platform, use the following command:
+**Download ImmortalWrt SDK**
+
+First, go to [ImmortalWrt SDK](https://downloads.immortalwrt.org/releases/23.05.2/targets/rockchip/armv8/immortalwrt-sdk-23.05.2-rockchip-armv8_gcc-12.3.0_musl.Linux-x86_64.tar.xz) to download the `.tar.xz` compressed package and extract it to the `~/ImmortalWrt/Sdk/` directory.
+
+**Build the program**
+
+Assume `~/Workspaces/Golang/Projects/Desktop/v2dat` is your project path.
 
 ```shell
-GOOS=linux GOARCH=arm64 go build -ldflags="-s -w" -o v2dat
+export STAGING_DIR=~/ImmortalWrt/Sdk/immortalwrt-sdk-23.05.2-rockchip-armv8_gcc-12.3.0_musl.Linux-x86_64/staging_dir
+export TOOLCHAIN_DIR=$STAGING_DIR/toolchain-aarch64_generic_gcc-12.3.0_musl
+export PATH=$TOOLCHAIN_DIR/bin:$PATH
+
+cd ~/Workspaces/Golang/Projects/Desktop/v2dat
+export GOOS=linux
+export GOARCH=arm64
+export CC=$TOOLCHAIN_DIR/bin/aarch64-openwrt-linux-gcc
+export CXX=$TOOLCHAIN_DIR/bin/aarch64-openwrt-linux-g++
+
+go build -ldflags="-s -w" -o v2dat
 ```
 
 ### Description
