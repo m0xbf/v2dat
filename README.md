@@ -54,6 +54,7 @@ To compile the project for the Linux ARM64 platform, use the following command:
 ```shell
 GOOS=linux GOARCH=arm64 go build -ldflags="-s -w" -o v2dat
 ```
+
 ### Description
 
 - `GOOS=linux` specifies the target operating system.
